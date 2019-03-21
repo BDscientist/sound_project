@@ -6,7 +6,7 @@ import pandas as pd
 import wave
 import struct
 
-block_size =10240
+block_size =1024
 
 wave_data = wave.open('C:\cleanfile\sample.wav')
 nframes = wave_data.getnframes()
