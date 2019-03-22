@@ -25,22 +25,24 @@ def extract_spectrum(part):
         D = librosa.stft(y, n_fft=1024, hop_length=256).T # short-time Fourier transform을 합니다.
         mag, phase = librosa.magphase(D) # phase 정보를 제외하고, 세기만 얻습니다.
         S = numpy.log(1 + mag * 1000) # 로그형태로 변환합니다.
-    if part == 'train': # 'train'인 경우 합계와 제곱의 합을 누적합니다.
-        data_sum += S
-        data_squared_sum += S ** 2
+        if part == 'train': # 'train'인 경우 합계와 제곱의 합을 누적합니다.
+            data_sum += S
+            data_squared_sum += S ** 2
         numpy.save('C:/project1/'+part+'/spectrum/'+f+'.npy', S) # 현재 샘플의 스펙트럼을 저장합니다.
     if part == 'train': # 모든 파일의 변환이 끝난 후에, 'train'인 경우 평균과 표준편차를 저장합니다.
         data_mean = data_sum / len(sample_files)
         data_std = (data_squared_sum / len(sample_files) - data_mean ** 2) ** 0.5
         numpy.save('C:/project1/'+part+'/spectrum/data_mean.npy', data_mean)
         numpy.save('C:/project1/'+part+'/spectrum/data_std.npy', data_std)
-
+        print("finish!!!")
 if __name__ == '__main__':
 
-    for part in ['test']:
+    for part in ['train','test','valid']:
         extract_spectrum(part)
 
 
+
+#stft 를 가지고 변환 후 log ---> pca 를 통해 차원을 축소할것임
 
 
 #이 다음으로 가우시안 믹스쳐 모델을 사용해야 하는지? cnn 이나 rnn model을 사용해야하는지? 고민

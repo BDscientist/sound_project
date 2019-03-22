@@ -24,10 +24,10 @@ y,sr = librosa.load('C:/project1/train2/audio2/ZOOM0021 .wav')
 
 #mel function으로 변환
 mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
-sequence_length = 20
+sequence_length = 40
 feature_dimension = 398
 
-#print(mfcc.shape)
+print(mfcc.shape)
 
 #print(new_mfcc_numpy.shape)
 mfcc_mean = np.mean(mfcc)
