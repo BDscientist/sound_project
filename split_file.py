@@ -36,6 +36,6 @@ def gather_information(part):
 if __name__ == '__main__' :
     #part = os.listdir('C:/project1/nsynth-test.jsonwav/nsynth-test')
      # 위 함수를 'train', 'valid', 'test'에 대해 실행합니다.
-    #gather_information('valid')
-    #gather_information('test')
+    gather_information('valid')
+    gather_information('test')
     gather_information('train')
