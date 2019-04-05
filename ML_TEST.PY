@@ -27,8 +27,8 @@ def prepare_data():
     test_samples = open('C:/project1/test_samples.txt').read().strip().split('\n')
     test_labels = [int(labels)for labels in open('C:/project1/test_labels.txt').read().strip().split('\n')]
 
-    data_mean = numpy.load('C:/project1/train/spectrum/data_mean.npy')
-    data_std = numpy.load('C:/project1/train/spectrum/data_std.npy')
+    data_mean = numpy.load('C:/project1/train/spectrum3/data_mean.npy')
+    data_std = numpy.load('C:/project1/train/spectrum3/data_std.npy')
 
 def get_random_sample(part):
 
@@ -47,17 +47,15 @@ def get_random_sample(part):
         print('Please use train, valid, or test for the part name')
 
     i = random.randrange(len(samples))
-    spectrum = numpy.load(part+'/spectrum/'+samples[i]+'.npy')
+    spectrum = numpy.load(part+'/spectrum3/'+samples[i]+'.npy')
     spectrum = (spectrum - data_mean) / (data_std + 0.0001)
     return spectrum, labels[i]
 
-
-
 def get_random_batch(part):
-    X = numpy.zeros((batch_size, sequence_length, feature_dimension,1))
+    X = numpy.zeros(( sequence_length, feature_dimension))
     Y = numpy.zeros((batch_size,))
     for b in range(batch_size):
         s, l =get_random_sample(part)    #spectrum , labels[i]
-        X[b, :, :, 0] = s[:sequence_length, :feature_dimension]
+        X[ :, :] = s[:sequence_length, :feature_dimension]
         Y[b] =l
     return X,Y
